@@ -2,6 +2,7 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  font-family: "Rubik", sans-serif;
 }
 
 body {
@@ -35,7 +36,7 @@ footer {
 footer p {
   left: 50%;
   bottom: 3%;
-  opacity: .45;
+  opacity: .5;
   font-size: .7rem;
   position: absolute;
   translate: -50% -50%;
