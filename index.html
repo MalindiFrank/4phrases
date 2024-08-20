@@ -53,7 +53,7 @@
     ];
 
     let qouteList = [];
-    let qouteIndex = (qouteList.length - 1);
+    let qouteIndex = 0;
     let nextBtn = document.querySelector(".next");
 
     async function getData() {
@@ -75,13 +75,18 @@
       nextBtn.style.display = "";
       nextBtn.textContent = "next";
       qouteList.push(data[0].content);
+      qouteIndex = qouteList.length - 1
     };
 
-    async function prevContent() {
+    function prevContent() {
       if (qouteIndex >= 1) {
-        document.querySelector("#quote").textContent = qouteList[qouteIndex - 1];
-        qouteIndex -= 1;
+        document.querySelector('#quote').textContent = qouteList[(qouteIndex - 1)];
+        qouteIndex -= 1
       };
+
+      console.log('qoute index: ', qouteIndex, qouteIndex >= 1);
+      console.log(qouteList.length, qouteList)
+      console.log('word: ', qouteList[qouteIndex - 1]);
     };
 
     function setRandomBg(arr) {
