@@ -38,6 +38,7 @@ footer p {
   bottom: 3%;
   opacity: .5;
   font-size: .7rem;
+  padding: 1.2rem;
   position: absolute;
   translate: -50% -50%;
 }
