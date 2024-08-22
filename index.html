@@ -15,7 +15,8 @@
 
 <body>
   <main>
-    <p id="quote" class="definition"></p>
+    <p id="quote"></p>
+    <p id="author" style="display: none"></p>
     <button id="next" style="display: none">next</button>
     <p id="loader">Loading...</p>
   </main>
@@ -55,6 +56,7 @@
     let qouteList = [];
     let qouteIndex = 0;
     let nextBtn = document.querySelector(".next");
+    const authorEl = document.querySelector("#author");
 
     async function getData() {
       try {
@@ -70,8 +72,10 @@
 
     async function setContent() {
       let data = await getData();
+   
       document.querySelector("#loader").style.display = "none";
       document.querySelector("#quote").textContent = data.quote;
+      authorEl.textContent = data.author;
       nextBtn.style.display = "";
       nextBtn.textContent = "next";
       qouteList.push(data.quote);
@@ -93,12 +97,22 @@
 
     function popUpMsg() {
       const popUpMsgEl = document.querySelector(".help");
-      popUpMsgEl.textContent = "‹  swipe & double tap  ›";
+      popUpMsgEl.textContent = "‹ swipe & tap ›";
       setTimeout(() => popUpMsgEl.remove(), 2999);
     };
 
+    function showAllContent(value) {
+      if (value) authorEl.style.display = '';
+      else {
+        authorEl.style.display = 'none';
+      }
+    };
+
     const hammertime = new Hammer(document.querySelector("body"));
+    
     hammertime.on("doubletap", () => setRandomBg(bgColors));
+    hammertime.on("pandown", () => showAllContent(true));
+    hammertime.on("panup", () => showAllContent(false));
     hammertime.on("swiperight", () => prevContent());
     hammertime.on("swipeleft", () => setContent());
 
