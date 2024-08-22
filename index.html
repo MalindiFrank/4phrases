@@ -58,7 +58,7 @@
 
     async function getData() {
       try {
-        const response = await fetch("https://api.quotable.io/quotes/random");
+        const response = await fetch("https://quotes-api-self.vercel.app/quote");
         const data = await response.json();
         return data;
       } catch (error) {
@@ -71,10 +71,10 @@
     async function setContent() {
       let data = await getData();
       document.querySelector("#loader").style.display = "none";
-      document.querySelector("#quote").textContent = data[0].content;
+      document.querySelector("#quote").textContent = data.quote;
       nextBtn.style.display = "";
       nextBtn.textContent = "next";
-      qouteList.push(data[0].content);
+      qouteList.push(data.quote);
       qouteIndex = qouteList.length - 1
     };
 
@@ -111,6 +111,7 @@
       setContent();
       setRandomBg(bgColors);
     });
+
   </script>
 </body>
 
