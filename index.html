@@ -111,8 +111,8 @@
     const hammertime = new Hammer(document.querySelector("body"));
     
     hammertime.on("doubletap", () => setRandomBg(bgColors));
-    hammertime.on("pandown", () => showAllContent(true));
-    hammertime.on("panup", () => showAllContent(false));
+    hammertime.on("panup", () => showAllContent(true));
+    hammertime.on("pandown", () => showAllContent(false));
     hammertime.on("swiperight", () => prevContent());
     hammertime.on("swipeleft", () => setContent());
 
