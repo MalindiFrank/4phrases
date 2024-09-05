@@ -7,9 +7,9 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@300&display=swap" rel="stylesheet" />
+  <link rel="manifest" href="manifest.webmanifest" />
   <link rel="stylesheet" href="main.css" />
   <link rel="stylesheet" href="animation.css" />
-  <link rel="manifest" href="manifest.webmanifest" />
   <script src="https://cdnjs.cloudflare.com/ajax/libs/hammer.js/2.0.8/hammer.min.js"></script>
   <title>4 Phrases</title>
 </head>
@@ -28,30 +28,12 @@
 
   <script>
     const bgColors = [
-      {
-        background: "#f4f0ea",
-        color: "#544b43",
-      },
-      {
-        background: "#aa5a2e",
-        color: "#f5f3f3",
-      },
-      {
-        background: "#dfc7a9",
-        color: " #544b43",
-      },
-      {
-        background: "#533320",
-        color: "#d3cfcb",
-      },
-      {
-        background: "#373737",
-        color: "#d3cfcb",
-      },
-      {
-        background: "#b5a886",
-        color: "#544b43",
-      },
+      { background: "#f4f0ea",  color: "#544b43"},
+      { background: "#aa5a2e",  color: "#f5f3f3"},
+      { background: "#dfc7a9",  color: "#544b43"},
+      { background: "#533320",  color: "#d3cfcb"},
+      { background: "#373737",  color: "#d3cfcb"},
+      { background: "#b5a886",  color: "#544b43"},
     ];
 
     let qouteList = [];
@@ -73,7 +55,6 @@
 
     async function setContent() {
       let data = await getData();
-   
       document.querySelector("#loader").style.display = "none";
       document.querySelector("#quote").textContent = data.quote;
       authorEl.textContent = data.author;
@@ -96,35 +77,32 @@
       document.body.style.color = arr[randomIndex].color;
     };
 
-    function popUpMsg() {
+    function popUpMsg(txt) {
       const popUpMsgEl = document.querySelector(".help");
-      popUpMsgEl.textContent = "‹ swipe & tap ›";
+      popUpMsgEl.textContent = txt;
       setTimeout(() => popUpMsgEl.remove(), 2999);
     };
 
     function showAllContent(value) {
       if (value) authorEl.style.display = '';
-      else {
-        authorEl.style.display = 'none';
-      }
+      else authorEl.style.display = 'none';
     };
 
     const hammertime = new Hammer(document.querySelector("body"));
-    
-    hammertime.on("doubletap", () => setRandomBg(bgColors));
-    hammertime.on("panup", () => showAllContent(true));
-    hammertime.on("pandown", () => showAllContent(false));
-    hammertime.on("swiperight", () => prevContent());
-    hammertime.on("swipeleft", () => setContent());
 
-    document
-      .querySelector(".next")
+    hammertime.on("pandown", () => showAllContent(false));
+    hammertime.on("panup", () => showAllContent(true));
+    hammertime.on("swipeleft", () => setContent());
+    hammertime.on("swiperight", () => prevContent());
+    hammertime.on("doubletap", () => setRandomBg(bgColors));
+
+    document.querySelector(".next")
       .addEventListener("click", () => setContent());
 
     document.addEventListener("DOMContentLoaded", () => {
-      popUpMsg();
       setContent();
       setRandomBg(bgColors);
+      popUpMsg("‹ swipe & tap ›");
     });
 
   </script>
