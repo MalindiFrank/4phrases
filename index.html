@@ -28,20 +28,20 @@
 
   <script>
     const bgColors = [
-      { background: "#f4f0ea",  color: "#544b43"},
-      { background: "#aa5a2e",  color: "#f5f3f3"},
-      { background: "#dfc7a9",  color: "#544b43"},
-      { background: "#533320",  color: "#d3cfcb"},
-      { background: "#373737",  color: "#d3cfcb"},
-      { background: "#b5a886",  color: "#544b43"},
+      { background: "#f4f0ea", color: "#544b43" },
+      { background: "#aa5a2e", color: "#f5f3f3" },
+      { background: "#dfc7a9", color: "#544b43" },
+      { background: "#533320", color: "#d3cfcb" },
+      { background: "#373737", color: "#d3cfcb" },
+      { background: "#b5a886", color: "#544b43" },
     ];
 
-    let qouteList = [];
-    let qouteIndex = 0;
-    let nextBtn = document.querySelector(".next");
-    const authorEl = document.querySelector("#author");
+    let quotesArray = [];
+    let currentArrayIndex = 0;
+    let nextButtonTag = document.querySelector(".next");
+    const authorNameTag = document.querySelector("#author");
 
-    async function getData() {
+    async function fetchData() {
       try {
         const response = await fetch("https://quotes-api-self.vercel.app/quote");
         const data = await response.json();
@@ -49,29 +49,31 @@
       } catch (error) {
         document.querySelector("#loader").textContent =
           "Site can't be reached, check the connection.";
-        nextBtn.textContent = "Reload";
-      }
-    };
-
-    async function setContent() {
-      let data = await getData();
-      document.querySelector("#loader").style.display = "none";
-      document.querySelector("#quote").textContent = data.quote;
-      authorEl.textContent = data.author;
-      nextBtn.style.display = "";
-      nextBtn.textContent = "next";
-      qouteList.push(data.quote);
-      qouteIndex = qouteList.length - 1
-    };
-
-    function prevContent() {
-      if (qouteIndex >= 1) {
-        document.querySelector('#quote').textContent = qouteList[(qouteIndex - 1)];
-        qouteIndex -= 1
+        nextButtonTag.textContent = "Reload";
+        throw error(error);
       };
     };
 
-    function setRandomBg(arr) {
+    async function addContentToHtml() {
+      let data = await fetchData();
+      document.querySelector("#loader").style.display = "none";
+      document.querySelector("#quote").textContent = data.quote;
+      authorNameTag.textContent = data.author;
+      nextButtonTag.style.display = "";
+      nextButtonTag.textContent = "next";
+      quotesArray.push(data.quote);
+      currentArrayIndex = quotesArray.length - 1;
+    };
+
+    function goToPreviousWord() {
+      if (currentArrayIndex >= 1) {
+        document.querySelector("#quote").textContent =
+          quotesArray[currentArrayIndex - 1];
+        currentArrayIndex -= 1;
+      };
+    };
+
+    function setRandomBgColor(arr) {
       const randomIndex = Math.floor(Math.random() * arr.length);
       document.body.style.backgroundColor = arr[randomIndex].background;
       document.body.style.color = arr[randomIndex].color;
@@ -83,28 +85,30 @@
       setTimeout(() => popUpMsgEl.remove(), 2999);
     };
 
-    function showAllContent(value) {
-      if (value) authorEl.style.display = '';
-      else authorEl.style.display = 'none';
+    let showAuthorValue = false;
+
+    function showAuthorName() {
+      if (showAuthorValue) authorNameTag.style.display = "none";
+      else authorNameTag.style.display = "";
+      showAuthorValue = !showAuthorValue
     };
 
     const hammertime = new Hammer(document.querySelector("body"));
 
-    hammertime.on("pandown", () => showAllContent(false));
-    hammertime.on("panup", () => showAllContent(true));
-    hammertime.on("swipeleft", () => setContent());
-    hammertime.on("swiperight", () => prevContent());
-    hammertime.on("doubletap", () => setRandomBg(bgColors));
+    hammertime.on("panup", () => showAuthorName());
+    hammertime.on("swipeleft", () => addContentToHtml());
+    hammertime.on("swiperight", () => goToPreviousWord());
+    hammertime.on("doubletap", () => setRandomBgColor(bgColors));
 
-    document.querySelector(".next")
-      .addEventListener("click", () => setContent());
+    document
+      .querySelector(".next")
+      .addEventListener("click", () => addContentToHtml());
 
     document.addEventListener("DOMContentLoaded", () => {
-      setContent();
-      setRandomBg(bgColors);
+      addContentToHtml();
+      setRandomBgColor(bgColors);
       popUpMsg("‹ swipe & tap ›");
     });
-
   </script>
 </body>
 
