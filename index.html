@@ -25,97 +25,97 @@
     <p class="next">next</p>
   </footer>
 
-  <script>
-    const bgColors = [
-      { background: "#f4f0ea", color: "#544b43" },
-      { background: "#aa5a2e", color: "#f5f3f3" },
-      { background: "#dfc7a9", color: "#544b43" },
-      { background: "#533320", color: "#d3cfcb" },
-      { background: "#373737", color: "#d3cfcb" },
-      { background: "#b5a886", color: "#544b43" },
-    ];
+  <script defer>
+    (function () {
 
-    const elements = {
-      nextButton: document.querySelector(".next"),
-      author: document.querySelector("#author"),
-      loader: document.querySelector("#loader"),
-      quote: document.querySelector("#quote"),
-    };
+      const bgColors = [
+        { background: "#f4f0ea", color: "#544b43" },
+        { background: "#aa5a2e", color: "#f5f3f3" },
+        { background: "#dfc7a9", color: "#544b43" },
+        { background: "#533320", color: "#d3cfcb" },
+        { background: "#373737", color: "#d3cfcb" },
+        { background: "#b5a886", color: "#544b43" },
+      ];
 
-    let quotesArray = [];
-    let currentArrayIndex = 0;
-
-    async function fetchAndHandleQuote() {
-      try {
-        const response = await fetch("https://quotes-api-self.vercel.app/quote");
-        const data = await response.json();
-        addContentToHtml(data);
-      } catch (error) {
-        elements.loader.textContent =
-          "Site can't be reached, check the connection.";
-        elements.nextButton.textContent = "Reload";
-        throw error;
+      const elements = {
+        nextButton: document.querySelector(".next"),
+        author: document.querySelector("#author"),
+        loader: document.querySelector("#loader"),
+        quote: document.querySelector("#quote"),
       };
-    };
 
-    function addContentToHtml(data) {
-      elements.loader.style.display = "none";
-      elements.quote.textContent = data.quote;
-      elements.author.textContent = data.author;
-      elements.nextButton.style.display = "";
-      elements.nextButton.textContent = "next";
-      quotesArray.push(data.quote);
-      currentArrayIndex = quotesArray.length - 1;
-    };
+      let quotesArray = [];
+      let currentArrayIndex = 0;
 
-    function goToPreviousWord() {
-      if (currentArrayIndex >= 1) {
-        elements.quote.textContent =
-          quotesArray[currentArrayIndex - 1];
-        currentArrayIndex--;
+      async function fetchAndHandleQuote() {
+        try {
+          const response = await fetch("https://quotes-api-self.vercel.app/quote");
+          const data = await response.json();
+          addContentToHtml(data);
+        } catch (error) {
+          elements.loader.textContent =
+            "Site can't be reached, check the connection.";
+          elements.nextButton.textContent = "Reload";
+        };
       };
-    };
 
-    function setRandomBgColor(arr) {
-      const randomIndex = Math.floor(Math.random() * arr.length);
-      document.body.style.backgroundColor = arr[randomIndex].background;
-      document.body.style.color = arr[randomIndex].color;
-    };
+      function addContentToHtml(data) {
+        elements.loader.style.display = "none";
+        elements.quote.textContent = data.quote;
+        elements.author.textContent = data.author;
+        elements.nextButton.style.display = "";
+        elements.nextButton.textContent = "next";
+        quotesArray.push(data.quote);
+        currentArrayIndex = quotesArray.length - 1;
+      };
 
-    function popUpMsg(txt) {
-      const popUpMsgEl = document.querySelector(".help");
-      popUpMsgEl.textContent = txt;
-      setTimeout(() => popUpMsgEl.remove(), 2999);
-    };
+      function goToPreviousWord() {
+        if (currentArrayIndex > 0) {
+          elements.quote.textContent =
+            quotesArray[--currentArrayIndex];
+        };
+      };
 
-    let showAuthorValue = false;
+      function setRandomBgColor(arr) {
+        const randomIndex = Math.floor(Math.random() * arr.length);
+        document.body.style.backgroundColor = arr[randomIndex].background;
+        document.body.style.color = arr[randomIndex].color;
+      };
 
-    function showAuthorName() {
-      elements.author
-        .style.display = showAuthorValue ? "none" : "";
-      showAuthorValue = !showAuthorValue;
-    };
+      function popUpMsg(txt) {
+        const popUpMsgEl = document.querySelector(".help");
+        popUpMsgEl.textContent = txt;
+        setTimeout(() => popUpMsgEl.remove(), 2999);
+      };
 
-    const hammertime = new Hammer(document.querySelector("body"));
+      let showAuthorValue = false;
 
-    hammertime.on("swiperight", goToPreviousWord);
-    hammertime.on("swipeleft", fetchAndHandleQuote);
-    hammertime.on("doubletap", () => setRandomBgColor(bgColors));
-    hammertime.on("pandown", () => setRandomBgColor(bgColors));
-    hammertime.on("panup", () => setRandomBgColor(bgColors));
+      function showAuthorName() {
+        elements.author.style
+          .display = elements.author.style.display == 'none' ? '' : 'none';
+      };
 
-    elements.quote
-      .addEventListener("click", showAuthorName);
+      const hammertime = new Hammer(document.querySelector("body"));
 
-    elements.nextButton
-      .addEventListener("click", () => fetchAndHandleQuote());
+      hammertime.on("swiperight", goToPreviousWord);
+      hammertime.on("swipeleft", fetchAndHandleQuote);
+      hammertime.on("doubletap", () => setRandomBgColor(bgColors));
+      hammertime.on("pandown", () => setRandomBgColor(bgColors));
+      hammertime.on("panup", () => setRandomBgColor(bgColors));
 
-    document.addEventListener("DOMContentLoaded", () => {
-      setRandomBgColor(bgColors);
-      popUpMsg("‹ swipe & tap ›");
-      fetchAndHandleQuote();
-    });
+      elements.quote
+        .addEventListener("click", showAuthorName);
 
+      elements.nextButton
+        .addEventListener("click", fetchAndHandleQuote);
+
+      document.addEventListener("DOMContentLoaded", () => {
+        setRandomBgColor(bgColors);
+        popUpMsg("‹ swipe & tap ›");
+        fetchAndHandleQuote();
+      });
+
+    })();
   </script>
 </body>
 
