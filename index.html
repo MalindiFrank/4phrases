@@ -18,7 +18,6 @@
   <main>
     <p id="quote"></p>
     <p id="author" style="display: none"></p>
-    <button id="next" style="display: none">next</button>
     <p id="loader">Loading...</p>
   </main>
   <div class="help"></div>
@@ -36,6 +35,13 @@
       { background: "#b5a886", color: "#544b43" },
     ];
 
+    const elements = {
+      nextButton: document.querySelector(".next"),
+      author: document.querySelector("#author"),
+      loader: document.querySelector("#loader"),
+      quote: document.querySelector("#quote"),
+    };
+
     let quotesArray = [];
     let currentArrayIndex = 0;
 
@@ -45,26 +51,26 @@
         const data = await response.json();
         addContentToHtml(data);
       } catch (error) {
-        loaderTag.textContent =
+        elements.loader.textContent =
           "Site can't be reached, check the connection.";
-        nextButton.textContent = "Reload";
+        elements.nextButton.textContent = "Reload";
         throw error;
       };
     };
 
     function addContentToHtml(data) {
-      loaderTag.style.display = "none";
-      qouteTag.textContent = data.quote;
-      authorTag.textContent = data.author;
-      nextButton.style.display = "";
-      nextButton.textContent = "next";
+      elements.loader.style.display = "none";
+      elements.quote.textContent = data.quote;
+      elements.author.textContent = data.author;
+      elements.nextButton.style.display = "";
+      elements.nextButton.textContent = "next";
       quotesArray.push(data.quote);
       currentArrayIndex = quotesArray.length - 1;
     };
 
     function goToPreviousWord() {
       if (currentArrayIndex >= 1) {
-        qouteTag.textContent =
+        elements.quote.textContent =
           quotesArray[currentArrayIndex - 1];
         currentArrayIndex--;
       };
@@ -85,24 +91,23 @@
     let showAuthorValue = false;
 
     function showAuthorName() {
-      authorTag.style.display = showAuthorValue ? "none" : "";
+      elements.author
+        .style.display = showAuthorValue ? "none" : "";
       showAuthorValue = !showAuthorValue;
     };
 
     const hammertime = new Hammer(document.querySelector("body"));
 
-    hammertime.on("panup", showAuthorName);
-    hammertime.on("swipeleft", fetchAndHandleQuote);
     hammertime.on("swiperight", goToPreviousWord);
+    hammertime.on("swipeleft", fetchAndHandleQuote);
     hammertime.on("doubletap", () => setRandomBgColor(bgColors));
+    hammertime.on("pandown", () => setRandomBgColor(bgColors));
+    hammertime.on("panup", () => setRandomBgColor(bgColors));
 
-    const nextButton = document.querySelector(".next");
-    const authorTag = document.querySelector("#author");
-    const loaderTag = document.querySelector("#loader");
-    const qouteTag = document.querySelector("#quote");
+    elements.quote
+      .addEventListener("click", showAuthorName);
 
-    document
-      .querySelector(".next")
+    elements.nextButton
       .addEventListener("click", () => fetchAndHandleQuote());
 
     document.addEventListener("DOMContentLoaded", () => {
