@@ -38,38 +38,35 @@
 
     let quotesArray = [];
     let currentArrayIndex = 0;
-    let nextButtonTag = document.querySelector(".next");
-    const authorNameTag = document.querySelector("#author");
 
-    async function fetchData() {
+    async function fetchAndHandleQuote() {
       try {
         const response = await fetch("https://quotes-api-self.vercel.app/quote");
         const data = await response.json();
-        return data;
+        addContentToHtml(data);
       } catch (error) {
-        document.querySelector("#loader").textContent =
+        loaderTag.textContent =
           "Site can't be reached, check the connection.";
-        nextButtonTag.textContent = "Reload";
-        throw error(error);
+        nextButton.textContent = "Reload";
+        throw error;
       };
     };
 
-    async function addContentToHtml() {
-      let data = await fetchData();
-      document.querySelector("#loader").style.display = "none";
-      document.querySelector("#quote").textContent = data.quote;
-      authorNameTag.textContent = data.author;
-      nextButtonTag.style.display = "";
-      nextButtonTag.textContent = "next";
+    function addContentToHtml(data) {
+      loaderTag.style.display = "none";
+      qouteTag.textContent = data.quote;
+      authorTag.textContent = data.author;
+      nextButton.style.display = "";
+      nextButton.textContent = "next";
       quotesArray.push(data.quote);
       currentArrayIndex = quotesArray.length - 1;
     };
 
     function goToPreviousWord() {
       if (currentArrayIndex >= 1) {
-        document.querySelector("#quote").textContent =
+        qouteTag.textContent =
           quotesArray[currentArrayIndex - 1];
-        currentArrayIndex -= 1;
+        currentArrayIndex--;
       };
     };
 
@@ -88,27 +85,32 @@
     let showAuthorValue = false;
 
     function showAuthorName() {
-      if (showAuthorValue) authorNameTag.style.display = "none";
-      else authorNameTag.style.display = "";
-      showAuthorValue = !showAuthorValue
+      authorTag.style.display = showAuthorValue ? "none" : "";
+      showAuthorValue = !showAuthorValue;
     };
 
     const hammertime = new Hammer(document.querySelector("body"));
 
-    hammertime.on("panup", () => showAuthorName());
-    hammertime.on("swipeleft", () => addContentToHtml());
-    hammertime.on("swiperight", () => goToPreviousWord());
+    hammertime.on("panup", showAuthorName);
+    hammertime.on("swipeleft", fetchAndHandleQuote);
+    hammertime.on("swiperight", goToPreviousWord);
     hammertime.on("doubletap", () => setRandomBgColor(bgColors));
+
+    const nextButton = document.querySelector(".next");
+    const authorTag = document.querySelector("#author");
+    const loaderTag = document.querySelector("#loader");
+    const qouteTag = document.querySelector("#quote");
 
     document
       .querySelector(".next")
-      .addEventListener("click", () => addContentToHtml());
+      .addEventListener("click", () => fetchAndHandleQuote());
 
     document.addEventListener("DOMContentLoaded", () => {
-      addContentToHtml();
       setRandomBgColor(bgColors);
       popUpMsg("‹ swipe & tap ›");
+      fetchAndHandleQuote();
     });
+
   </script>
 </body>
 
