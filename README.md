@@ -1,6 +1,6 @@
 # 4 Phrases
 
-4Phrases is a simple web application that displays random quotes with interactive features. Users can swipe or tap to change quotes, view authors, and alter background colors. The idea for the application is a minimal and user-friendly interface. Feel free to add any improvements.
+4Phrases is a simple web application that displays random quotes with interactive features. Users can swipe or tap to change quotes, view authors, and alter background colors. The idea for the application is a minimal and user-friendly interface. Feel free to add any improvements. [Check It Out!](https://4phrases.vercel.app/)
 
 # Awesome Features To Note
 
