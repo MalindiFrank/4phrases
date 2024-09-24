@@ -1,0 +1,20 @@
+name: Sync to GitLab
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Push to GitLab
+        env:
+          GITLAB_TOKEN: mxz7onwgRLUG89Wz7AKn
+        run: |
+          git remote add gitlab https://oauth2:mxz7onwgRLUG89Wz7AKn@gitlab.com/username/repo.git
+          git push gitlab main
