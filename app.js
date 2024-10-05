@@ -8,7 +8,7 @@
     { background: "#373737", color: "#d3cfcb" },
     { background: "#b5a886", color: "#544b43" },
     { background: "#d418d4", color: "#ffffff"},
-    { background: "#ff00ff8f", color: "#ffffff"},
+    // { background: "#ff00ff8f", color: "#ffffff"},
     { background: "#81ad6c", color: "#ffffff"},
     { background: "#6ca0ad", color: "#ffffff"},
     { background: "#c764a6", color: "#ffffff"},
