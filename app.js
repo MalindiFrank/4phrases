@@ -17,11 +17,12 @@
     { background: "#cab058", color: "#252525"},
   ];
 
-  const elements = {
+  const htmlTag = {
     nextButton: document.querySelector(".next"),
     author: document.querySelector("#author"),
     loader: document.querySelector("#loader"),
     quote: document.querySelector("#quote"),
+    AnimationMsg: document.querySelector(".help"),
   };
 
   let quotesArray = [];
@@ -30,35 +31,39 @@
 
   async function fetchAndHandleQuote() {
     try {
-      const response = await fetch("https://quotes-api-self.vercel.app/quote");
       //fetch('https://example.com/resource', { mode: 'no-cors' })
+      const response = await fetch("https://quotes-api-self.vercel.app/quote");
       const data = await response.json();
       addContentToHtml(data);
     } catch (error) {
-      elements.loader.textContent =
+      htmlTag.loader.textContent =
         "Site can't be reached, check the connection.";
-      elements.nextButton.textContent = "Reload";
+      htmlTag.nextButton.textContent = "Reload";
     };
   };
 
   function addContentToHtml(data) {
-    elements.loader.style.display = "none";
-    elements.quote.textContent = data.quote;
-    elements.author.textContent = data.author;
-    elements.nextButton.style.display = "";
-    elements.nextButton.textContent = "next";
-    quotesArray.push(data.quote);
-    authorArray.push(data.author);
-    currentArrayIndex = quotesArray.length - 1;
+    htmlTag.loader.style.display = "none";
+    htmlTag.quote.textContent = data.quote;
+    htmlTag.author.textContent = data.author;
+    htmlTag.nextButton.style.display = "";
+    htmlTag.nextButton.textContent = "next";
+    handlePreviousData(data.quote, data.author);
   };
 
   function goToPreviousWord() {
     if (currentArrayIndex > 0) {
-      elements.quote.textContent =
+      htmlTag.quote.textContent =
         quotesArray[--currentArrayIndex];
-      elements.author.textContent =
+      htmlTag.author.textContent =
         authorArray[--currentArrayIndex];
     };
+  };
+
+  function handlePreviousData(quote, author) {
+    quotesArray.push(quote);
+    authorArray.push(author);
+    currentArrayIndex = quotesArray.length - 1;
   };
 
   function setRandomBgColor(arr) {
@@ -67,16 +72,16 @@
     document.body.style.color = arr[randomIndex].color;
   };
 
-  function popUpMsg(txt) {
-    const popUpMsgEl = document.querySelector(".help");
-    popUpMsgEl.textContent = txt;
-    setTimeout(() => popUpMsgEl.remove(), 2999);
+  function showAuthorName() {
+    htmlTag.author.style
+      .display = htmlTag.author.style.display == 'none' ? '' : 'none';
   };
 
-  function showAuthorName() {
-    elements.author.style
-      .display = elements.author.style.display == 'none' ? '' : 'none';
+  function popUpMsg(txt) {
+    htmlTag.AnimationMsg.textContent = txt;
+    setTimeout(() => htmlTag.AnimationMsg.remove(), 3999);
   };
+
 
   const hammertime = new Hammer(document.querySelector("body"));
 
@@ -86,15 +91,15 @@
   hammertime.on("pandown", () => setRandomBgColor(bgColors));
   hammertime.on("panup", () => setRandomBgColor(bgColors));
 
-  elements.quote
+  htmlTag.quote
     .addEventListener("click", showAuthorName);
 
-  elements.nextButton
+  htmlTag.nextButton
     .addEventListener("click", fetchAndHandleQuote);
 
   document.addEventListener("DOMContentLoaded", () => {
     setRandomBgColor(bgColors);
-    popUpMsg("‹ swipe & tap ›");
+    popUpMsg("‹ swipe & tap features›");
     fetchAndHandleQuote();
   });
 

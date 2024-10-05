@@ -21,7 +21,7 @@
   - Swiping left fetches a new quote.
     
 - **Tap Gestures**:
-  - Double-tapping or panning up/down changes the background color.
+  - Double-tapping or panning/swiping up or down changes the background color.
     
 - **Click Events**:
   - Clicking the quote toggles the visibility of the author.
