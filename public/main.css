@@ -1,0 +1,41 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Rubik", sans-serif;
+}
+
+body {
+  min-height: 100svh;
+  display: grid;
+  align-content: center;
+  justify-content: center;
+  background: #cab058;
+  color: #252525;
+}
+
+main {
+  padding-inline: 3rem;
+}
+
+main p {
+  letter-spacing: .15rem;
+  font-weight: 900;
+  padding-bottom: .75rem;
+}
+
+footer {
+  text-align: center;
+}
+
+footer p {
+  left: 50%;
+  bottom: 3%;
+  opacity: .6;
+  font-size: 1rem;
+  padding: .5rem 1rem;
+  position: absolute;
+  translate: -50% -50%;
+  border: 1px solid;
+  border-radius: .8rem;
+}
