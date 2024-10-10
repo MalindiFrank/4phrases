@@ -82,7 +82,6 @@
     setTimeout(() => htmlTag.AnimationMsg.remove(), 3999);
   };
 
-
   const hammertime = new Hammer(document.querySelector("body"));
 
   hammertime.on("swiperight", goToPreviousWord);
