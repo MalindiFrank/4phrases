@@ -37,5 +37,5 @@ footer p {
   position: absolute;
   translate: -50% -50%;
   border: 1px solid;
-  border-radius: 25%;
+  border-radius: 25% 75%;
 }
