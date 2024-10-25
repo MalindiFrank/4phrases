@@ -31,10 +31,12 @@ footer {
 footer p {
   left: 50%;
   bottom: 3%;
+  opacity: 1;
   font-size: 1rem;
   padding: 1rem;
   position: absolute;
   translate: -50% -50%;
   border: 1px solid;
   border-radius: 50%;
+  background: transparent;
 }
