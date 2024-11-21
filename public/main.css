@@ -33,10 +33,10 @@ footer p {
   bottom: 3%;
   opacity: 1;
   font-size: 1rem;
-  padding: 1rem;
+  padding: .6rem 1rem;
   position: absolute;
   translate: -50% -50%;
   border: 1px solid;
-  border-radius: 50%;
+  border-radius: 30%;
   background: transparent;
 }
