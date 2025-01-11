@@ -19,9 +19,9 @@ main {
 }
 
 main p {
-  letter-spacing: .15rem;
+  letter-spacing: 0.15rem;
   font-weight: 900;
-  padding-bottom: .75rem;
+  padding-bottom: 0.75rem;
 }
 
 footer {
@@ -31,9 +31,9 @@ footer {
 footer p {
   left: 50%;
   bottom: 3%;
-  opacity: .6;
+  opacity: 0.6;
   font-size: 1rem;
-  padding: .7rem 1rem;
+  padding: 0.7rem 1rem;
   position: absolute;
   translate: -50% -50%;
   border: 1px solid;
