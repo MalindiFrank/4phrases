@@ -91,7 +91,7 @@
 
   document.addEventListener("DOMContentLoaded", () => {
     setRandomBgColor(bgColors);
-    popUpMsg("‹ swipe & double tap›");
+    popUpMsg("‹ double tap & swipe›");
     fetchAndHandleQuote();
   });
 })();
