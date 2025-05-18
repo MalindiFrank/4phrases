@@ -1,8 +1,9 @@
 # 4 Phrases
 
-4Phrases is a simple web application that displays random quotes with interactive features. Users can swipe or tap to change quotes, view authors, and alter background colors. The idea for the application is a minimal and user-friendly interface. Feel free to add any improvements. [Check It Out!](https://4phrases.netlify.app/)
+4Phrases is a simple web application that displays random quotes with interactive features. Users can swipe or tap to change quotes, view authors, and alter background colors. The idea for the application is a minimal and user-friendly interface. 
+Feel free to add any improvements. [Check It Out!](https://4phrases.netlify.app/)
 
-# Awesome Features To Note
+# Some Features To Note
 
 - **Swipe and Tap Interactions**: Utilizes Hammer.js to detect swipe and tap gestures.
 - **Dynamic Background Colors**: Changes background colors randomly from a predefined set.
@@ -11,9 +12,9 @@
 # An Even Better Web Feature 
 
 - Project includes `manifest.webmanifest`: Web app manifest for progressive web app features.
-  - The site can be a "stand-alone" app in any device and still look good, [Try It!](https://4phrases.netlify.app/)
+  - The site can be installed as an app in any device and still feel and look the same, [Try It!](https://4phrases.netlify.app/)
 
-# How It All Works
+# How It Actually Works
 
 - **Fetching Quotes**: On page load and whenever the "next" button is clicked, a quote is fetched from the API endpoint `https://quotes-api-self.vercel.app/quote`.
 - **Swipe Gestures**:
