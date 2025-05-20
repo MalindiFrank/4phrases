@@ -34,7 +34,7 @@ Feel free to add any improvements. [Check It Out!](https://4phrases.netlify.app/
 # Troubleshooting
 
 - If the application shows "Site can't be reached," ensure you have an active internet connection.
-- If background colors or quote interactions are not working, check for errors in the browser console.
+- If background colors or quote interactions are not working well, check for errors in the browser console.
 
 # Acknowledgements
 
