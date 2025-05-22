@@ -40,3 +40,4 @@ Feel free to add any improvements. [Check It Out!](https://4phrases.netlify.app/
 
 - Thanks to the creators of Hammer.js for the gesture detection library.
 - The quotes API used in this project is provided by [Quotes API](https://quotes-api-self.vercel.app/).
+_________________________________________
